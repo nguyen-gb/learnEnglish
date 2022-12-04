@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học tiếng Anh cùng Hải và Nguyên</title>
+    <link rel="stylesheet" href="../static/css/flashcards.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header_menu">
+                <a href="http://127.0.0.1:5000/gameVocab" class="menu_1">Game</a>
+                <a href="http://127.0.0.1:5000/flashCard?currentWord=0&action=0" class="menu_2">Flashcards</a>
+            </div>
+            <div class="header_title">
+                <div class="title_item"></div> 
+                <div class="title_item"></div>
+            </div>
+        </div>
+
+        <div class="content_card">            
+            <div class="content content_en active">
+                <div class="content_body">
+                    {{ result[0] }}
+                </div>                
+            </div>
+    
+            <div class="content content_vn invalid">
+                <div class="content_body">
+                    {{ result[1] }}
+                </div>                
+            </div>
+            <input type="hidden" id="currnetWord" value="{{currWord}}">
+            <div class="content_footer">
+                <div class="previous">
+                    Previous
+                </div>
+                <div class="next">
+                    Next
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const en = document.querySelector('.content_en')
+        const vn = document.querySelector('.content_vn')
+        const currnetWord = document.querySelector('#currnetWord')
+        
+        const btnNext = document.querySelectorAll('.next')
+        btnNext.forEach(e => {
+            e.addEventListener('click', function(){
+                if(currnetWord.value < 100){               
+                    var curr = Number(currnetWord.defaultValue) + 1
+                    window.location.href = "http://127.0.0.1:5000/flashCard?currentWord="+curr+"&action=1"
+                }
+            })
+        })
+
+        const btnPrevious = document.querySelectorAll('.previous')
+        btnPrevious.forEach(e => {
+            e.addEventListener('click', function(){
+                if(currnetWord.value > 0){
+                    var curr = Number(currnetWord.defaultValue) - 1
+                    window.location.href = "http://127.0.0.1:5000/flashCard?currentWord="+curr+"&action=1"
+                }
+            })
+        })
+
+        function showContentEn() {
+            vn.classList.remove('active')
+            vn.classList.add('invalid')
+            
+            en.classList.remove('invalid')
+            en.classList.add('active')
+        }
+
+        function showContentVn() {
+            en.classList.remove('active')
+            en.classList.add('invalid')
+            
+            vn.classList.remove('invalid')
+            vn.classList.add('active')
+        }
+
+        en.addEventListener('click', showContentVn)
+        vn.addEventListener('click', showContentEn)
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+body{
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+.container {
+    padding: 20px 60px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid palevioletred;
+    font-size: 1.2rem;
+}
+
+.header_title {
+    display: flex;
+}
+
+.title_item {
+    margin-right: 16px;
+}
+
+.content_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 2rem;
+}
+
+.menu_1,
+.menu_2 {
+    text-decoration: none;
+    color: black;
+}
+
+.menu_1 {
+    background-color: rgba(0, 0, 0, 0.07);
+    padding: 4px 6px 0 6px;
+    color: palevioletred;
+    border: 1px solid palevioletred;
+    border-bottom: 0;
+}
+
+.content_body {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    justify-content: space-around;
+}
+
+.content_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48%;
+    height: 100px;
+    background-color: #fff;
+    margin: 2px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.content_item:hover {
+    cursor: pointer;
+}
+
+.correct {
+    background-color: rgb(21, 177, 21);
+}
+
+.incorrect {
+    background-color: rgb(243, 93, 118);
+} 
+
+.content_item.correct {
+    animation-name: shake;
+    animation-duration: 0.7s, 0.35s;
+    animation-iteration-count: 1, 2;
+}
+
+@keyframes shake {
+
+    0%,
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(8px);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-8px);
+    }
+}

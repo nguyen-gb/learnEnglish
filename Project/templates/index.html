@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học tiếng Anh cùng Hải và Nguyên</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header_menu">
+                <a href="http://127.0.0.1:5000/gameVocab" class="menu_1">Game</a>
+                <a href="http://127.0.0.1:5000/flashCard?currentWord=0&action=0" class="menu_2">Flashcards</a>
+            </div>
+            <div class="header_title">
+                <div class="title_item">Correct: <span id="numCorrect">0</span></div> 
+                <div class="title_item">Incorrect: <span id="numIncorrect">0</span></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content_header">
+                {{randomVocab}}
+                <input type="hidden" id="answer" value="{{answer}}">
+            </div>
+            <div class="content_body">
+                {% for key, value in result.items() %}                      
+                    <div onclick="reload()" class="content_item">
+                        {{ key }}
+                        <input type="hidden" id="choose" value="{{value}}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var answer = document.querySelector("#answer")
+        var choose = document.querySelectorAll(".content_item")
+        
+        var numCor = Number(sessionStorage.getItem("numCorrect"))   // Get session of number answer correct
+        var numCorrect = document.querySelector("#numCorrect")      // Get and set element with number answer
+        numCorrect.innerHTML = numCor
+
+        var numIncor = Number(sessionStorage.getItem("numIncorrect"))
+        var numIncorrect = document.querySelector("#numIncorrect")
+        numIncorrect.innerHTML = numIncor
+
+        choose.forEach((e, index) =>{
+            e.addEventListener('click', function(){       
+                if(answer.value == e.childNodes.item(1).value){
+                    choose[index].classList.add("correct")
+
+                    numCor += 1
+                    sessionStorage.setItem("numCorrect", numCor);
+                }                        
+                else{
+                    numIncor += 1
+                    sessionStorage.setItem("numIncorrect", numIncor);                    
+
+                    choose[index].classList.add("incorrect")
+                    {
+                        choose.forEach((tmp, i) =>{
+                            if(tmp.childNodes.item(1).value == answer.value)
+                                choose[i].classList.add("correct")
+                        })                        
+                    }
+                }
+            })
+        })
+
+        function reload(){            
+            setTimeout(() => {
+                window.location.href = "http://127.0.0.1:5000/gameVocab"  
+            }, 1000);          
+        }
+    </script>
+</body>
+</html>
